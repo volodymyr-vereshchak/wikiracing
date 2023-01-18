@@ -1,22 +1,26 @@
 from __future__ import annotations
-from typing import Optional
 from sqlalchemy import Column
 from sqlalchemy import Table
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import Integer
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import relationship
+
+# from sqlalchemy import create_engine
+# from sqlalchemy import select
+
 
 class Base(DeclarativeBase):
     pass
 
 
-association_table = Table(
-    "association_table",
+page_to_link = Table(
+    "page_to_link",
     Base.metadata,
-    Column("page_id", ForeignKey("page.id")),
-    Column("link_id", ForeignKey("page.id")),
+    Column("page_id", Integer, ForeignKey("page.id"), primary_key=True),
+    Column("link_id", Integer, ForeignKey("page.id"), primary_key=True),
 )
 
 
@@ -25,4 +29,9 @@ class Page(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(unique=True)
-    link: Mapped[list[Page]] = relationship(secondary=association_table)
+    links: Mapped[list[Page]] = relationship(
+        secondary=page_to_link,
+        primaryjoin=id==page_to_link.c.page_id,
+        secondaryjoin=id==page_to_link.c.link_id,
+        backref="pages"
+    )
