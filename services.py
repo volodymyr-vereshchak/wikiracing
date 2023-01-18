@@ -25,7 +25,6 @@ class DBService:
         self.session.close()
 
     def add_page(self, page: Page) -> None:
-        # self.session.bulk_save_objects(pages)
         self.session.add(page)
         self.session.commit()
 
@@ -44,13 +43,13 @@ class DBService:
         try:
             return self.get_page_by_name(name)
         except NoResultFound:
-            return self.add_page(Page(name=name))
+            return Page(name=name)
 
 
 class ParseService:
 
-    def parse_page(self, name: str) -> list(str):
-        links = []
+    def parse_page(self, name: str) -> set(str):
+        links = set()
         url = urljoin(BASE_URL, name)
         response = requests.get(url=url).content
         soup = BeautifulSoup(response, "html.parser")
@@ -59,8 +58,8 @@ class ParseService:
         )
         for link in links_tag[:LINKS_PER_PAGE]:
             link_name = link.get("title")
-            links.append(link_name)
+            links.add(link_name)
         return links
 
-parse = ParseService()
-print(parse.parse_page("Дружба"))
+# parse = ParseService()
+# print(parse.parse_page("Дружба"))
