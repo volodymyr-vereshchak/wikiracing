@@ -75,5 +75,5 @@ class ParseService:
                     raise TimeoutError(f"No response from wiki! URL: {url}")
                 response = requests.get(url=url)
                 count_requests += 1
-        sleep(60 / REQUESTS_PER_MINUTE)
+        # sleep(60 / REQUESTS_PER_MINUTE)
         return response

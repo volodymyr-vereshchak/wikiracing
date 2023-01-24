@@ -19,8 +19,6 @@ class WikiRacer:
                 break
             path = self.find_path_with_depth(start, finish, depth)
             depth += 1
-        if path:
-            path = [start] + path
         return path
     
     def find_path_with_depth(self, start: str, finish: str, max_depth: int) -> list[str]:
@@ -44,6 +42,7 @@ class WikiRacer:
             for link in links_str:
                 if self.depth == max_depth or self.flag is True:
                     break
-                path += self.find_path_with_depth(link, finish, max_depth)
+                path = self.find_path_with_depth(link, finish, max_depth)
             self.depth -= 1
-            return path
+            return [start] + path if path else path
+

@@ -13,7 +13,7 @@ class WikiRacerTest(unittest.TestCase):
 
     def test_2(self):
         path = self.racer.find_path('Мітохондріальна ДНК', 'Вітамін K')
-        self.assertEqual(path, ['Мітохондріальна ДНК', 'Аденозинтрифосфат', 'Вітамін K'])
+        self.assertEqual(path, ['Мітохондріальна ДНК', 'Дезоксирибонуклеїнова кислота', 'Аденозинтрифосфат', 'Вітамін K'])
 
     def test_3(self):
         path = self.racer.find_path('Марка (грошова одиниця)', 'Китайський календар')
@@ -25,7 +25,7 @@ class WikiRacerTest(unittest.TestCase):
 
     def test_5(self):
         path = self.racer.find_path('Дружина (військо)', '6 жовтня')
-        self.assertEqual(path, ['Дружина (військо)', '24 жовтня', '6 жовтня'])
+        self.assertEqual(path, ['Дружина (військо)', 'Wayback Machine', '24 жовтня', '6 жовтня'])
 
 
 if __name__ == '__main__':
