@@ -1,16 +1,14 @@
 from __future__ import annotations
+import requests
 from time import sleep
-from sqlalchemy import create_engine
-from sqlalchemy import select
+from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
 from models import Base, Page, page_to_link
-from settings import DATABASE_URL
-
-import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from settings import (
+    DATABASE_URL,
     BASE_URL,
     REQUESTS_PER_MINUTE,
     LINKS_PER_PAGE,
@@ -75,5 +73,5 @@ class ParseService:
                     raise TimeoutError(f"No response from wiki! URL: {url}")
                 response = requests.get(url=url)
                 count_requests += 1
-        # sleep(60 / REQUESTS_PER_MINUTE)
+        sleep(60 / REQUESTS_PER_MINUTE)
         return response
