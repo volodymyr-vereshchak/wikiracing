@@ -1,15 +1,6 @@
 from __future__ import annotations
-from sqlalchemy import Column
-from sqlalchemy import Table
-from sqlalchemy import ForeignKey
-from sqlalchemy import Integer
-from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import relationship
-
-# from sqlalchemy import create_engine
-# from sqlalchemy import select
+from sqlalchemy import Column, Table, ForeignKey, Integer
+from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase, relationship
 
 
 class Base(DeclarativeBase):
